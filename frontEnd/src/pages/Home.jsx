@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function Home() {
     const [etudiants, setEtudiants] = useState([]);
@@ -46,13 +47,20 @@ function Home() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
+        <Link
+          to="/add"
+          className="btn btn-sm btn-primary me-2"
+          >
+          <i className="bi bi-pencil-square me-1"></i>
+            Ajouter un étudiant
+          </Link>
       </div>
     
       <div className="table-responsive">
         <table className="table table-bordered table-hover">
           <thead className="table-dark">
             <tr>
-              <th>ID</th>
+              <th>Photo</th>
               <th>Nom</th>
               <th>Prénom</th>
               <th>Email</th>
@@ -64,7 +72,13 @@ function Home() {
           <tbody>
             {filteredEtudiants.map(etudiant => (
               <tr key={etudiant.id}>
-                <td>{etudiant.id}</td>
+                <td>
+                  <img 
+                    src={`http://localhost:8081/uploads_images/${etudiant.image_url}`} 
+                    alt="Photo Étudiant" 
+                    style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '50%' }} 
+                  />
+                </td>
                 <td>{etudiant.nom}</td>
                 <td>{etudiant.prenom}</td>
                 <td>{etudiant.email}</td>
